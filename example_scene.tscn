@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://n08bddtymbcn"]
+
+[ext_resource type="PackedScene" uid="uid://d3lgr07t4uu7r" path="res://fps_player.tscn" id="1_4hohd"]
+[ext_resource type="Script" path="res://example_scene.gd" id="1_44con"]
+[ext_resource type="PackedScene" uid="uid://tjt4h6pd1lo4" path="res://portal.tscn" id="3_wiopi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aqsvg"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_14mvx"]
+sky_material = SubResource("ProceduralSkyMaterial_aqsvg")
+
+[sub_resource type="Environment" id="Environment_2oben"]
+background_mode = 2
+sky = SubResource("Sky_14mvx")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_esoel"]
+albedo_color = Color(0.364706, 0.498039, 0.105882, 1)
+metallic = 0.97
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pr4jn"]
+material = SubResource("StandardMaterial3D_esoel")
+size = Vector2(25, 25)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ciy7v"]
+data = PackedVector3Array(12.5, 0, 12.5, -12.5, 0, 12.5, 12.5, 0, -12.5, -12.5, 0, 12.5, -12.5, 0, -12.5, 12.5, 0, -12.5)
+
+[node name="ExampleScene" type="Node3D"]
+script = ExtResource("1_44con")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2oben")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_pr4jn")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("ConcavePolygonShape3D_ciy7v")
+
+[node name="FPSPlayer" parent="." instance=ExtResource("1_4hohd")]
+
+[node name="StartPosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.63101)
+
+[node name="Portal" parent="." instance=ExtResource("3_wiopi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.87417)
