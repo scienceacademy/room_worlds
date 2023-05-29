@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://d05bn6feyijcc"]
+
+[ext_resource type="Shader" path="res://cb/lava_2.gdshader" id="1_hgym5"]
+[ext_resource type="Texture2D" uid="uid://pvwvjuouhmnf" path="res://cb/pngegg.png" id="2_behwx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxyde"]
+render_priority = 0
+shader = ExtResource("1_hgym5")
+shader_parameter/speed = Vector2(0.02, 0.01)
+shader_parameter/voronoi_scale = 100.0
+shader_parameter/noise_scale = 0.11
+shader_parameter/color = Color(1, 0.0470588, 0, 1)
+shader_parameter/light_color = Color(1, 0.937255, 0.0980392, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7nlrv"]
+material = SubResource("ShaderMaterial_hxyde")
+size = Vector2(500, 500)
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3wl3t"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+disable_ambient_light = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_behwx")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_6xu2m"]
+material = SubResource("StandardMaterial3D_3wl3t")
+
+[node name="Lava1" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_7nlrv")
+
+[node name="Fire" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 11, 2)
+amount = 3
+lifetime = 3.0
+mesh = SubResource("QuadMesh_6xu2m")
+emission_shape = 3
+emission_box_extents = Vector3(200, 1, 200)
+direction = Vector3(2.08165e-12, 1, 2.08165e-12)
+spread = 0.0
+gravity = Vector3(2.08165e-12, -20, 2.08165e-12)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+radial_accel_min = -9.98
+radial_accel_max = 8.4
+scale_amount_min = 10.0
+scale_amount_max = 30.0

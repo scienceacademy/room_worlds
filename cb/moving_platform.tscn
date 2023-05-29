@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://cumat1ils5pmq"]
+
+[ext_resource type="Script" path="res://cb/moving_platform.gd" id="1_lq84g"]
+[ext_resource type="PackedScene" uid="uid://co1jppmycr2f7" path="res://cb/cube01.glb" id="2_cmusm"]
+[ext_resource type="Texture2D" uid="uid://dfdojetk60vop" path="res://cb/coast_sand_05_diff_1k.jpg" id="3_1aafy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dbu2"]
+albedo_texture = ExtResource("3_1aafy")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sv4ql"]
+size = Vector3(4, 2, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7dnu5"]
+transparency = 1
+albedo_color = Color(0.670588, 0.670588, 0.670588, 0.380392)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xbrg3"]
+material = SubResource("StandardMaterial3D_7dnu5")
+size = Vector3(4, 2, 4)
+
+[node name="MovingPlatform" type="Node3D"]
+script = ExtResource("1_lq84g")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
+
+[node name="cube01" parent="AnimatableBody3D" instance=ExtResource("2_cmusm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="Cube" parent="AnimatableBody3D/cube01" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4dbu2")
+
+[node name="cube02" parent="AnimatableBody3D" instance=ExtResource("2_cmusm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="Cube" parent="AnimatableBody3D/cube02" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4dbu2")
+
+[node name="cube03" parent="AnimatableBody3D" instance=ExtResource("2_cmusm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="Cube" parent="AnimatableBody3D/cube03" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4dbu2")
+
+[node name="cube04" parent="AnimatableBody3D" instance=ExtResource("2_cmusm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="Cube" parent="AnimatableBody3D/cube04" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4dbu2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
+shape = SubResource("BoxShape3D_sv4ql")
+
+[node name="Endpoint" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+mesh = SubResource("BoxMesh_xbrg3")
+
+[editable path="AnimatableBody3D/cube01"]
+[editable path="AnimatableBody3D/cube02"]
+[editable path="AnimatableBody3D/cube03"]
+[editable path="AnimatableBody3D/cube04"]

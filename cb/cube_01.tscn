@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2uagtct8i5ch"]
+
+[ext_resource type="PackedScene" uid="uid://co1jppmycr2f7" path="res://cb/cube01.glb" id="1_pula3"]
+[ext_resource type="Texture2D" uid="uid://dfdojetk60vop" path="res://cb/coast_sand_05_diff_1k.jpg" id="2_gl52o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_upr73"]
+albedo_texture = ExtResource("2_gl52o")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_egixd"]
+size = Vector3(2, 2, 2)
+
+[node name="cube01" type="StaticBody3D"]
+
+[node name="cube01" parent="." instance=ExtResource("1_pula3")]
+
+[node name="Cube" parent="cube01" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_upr73")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_egixd")
+
+[editable path="cube01"]

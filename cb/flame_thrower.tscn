@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://djl0p7cgk73ia"]
+
+[ext_resource type="Script" path="res://cb/flame_thrower.gd" id="1_bwu02"]
+[ext_resource type="Texture2D" uid="uid://pvwvjuouhmnf" path="res://cb/pngegg.png" id="1_pc401"]
+[ext_resource type="PackedScene" uid="uid://co1jppmycr2f7" path="res://cb/cube01.glb" id="3_l2jvx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1yaei"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_pc401")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_41l55"]
+material = SubResource("StandardMaterial3D_1yaei")
+
+[sub_resource type="Curve" id="Curve_45uu2"]
+max_value = 2.0
+_data = [Vector2(0, 0.701149), 0.0, 0.0, 0, 0, Vector2(0.986283, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_finey"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.544179, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.141176)
+
+[node name="FlameThrower" type="Node3D"]
+script = ExtResource("1_bwu02")
+
+[node name="Fire" type="CPUParticles3D" parent="."]
+amount = 20
+local_coords = true
+mesh = SubResource("QuadMesh_41l55")
+direction = Vector3(2.08165e-12, 2.08165e-12, -1)
+spread = 0.0
+gravity = Vector3(2.08165e-12, 0.5, 2.08165e-12)
+initial_velocity_min = 3.0
+initial_velocity_max = 3.5
+scale_amount_curve = SubResource("Curve_45uu2")
+color_ramp = SubResource("Gradient_finey")
+
+[node name="OnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="OffTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(2.08165e-12, 2.08165e-12, -4)
+collision_mask = 2
+
+[node name="cube01" parent="." instance=ExtResource("3_l2jvx")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[connection signal="timeout" from="OnTimer" to="." method="_on_on_timer_timeout"]
+[connection signal="timeout" from="OffTimer" to="." method="_on_off_timer_timeout"]

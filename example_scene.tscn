@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://n08bddtymbcn"]
+[gd_scene load_steps=12 format=3 uid="uid://cww4f8q7gcd4s"]
 
-[ext_resource type="PackedScene" uid="uid://d3lgr07t4uu7r" path="res://fps_player.tscn" id="1_4hohd"]
+[ext_resource type="PackedScene" uid="uid://di5lln257xm7i" path="res://cb/fps_player.tscn" id="1_4hohd"]
 [ext_resource type="Script" path="res://example_scene.gd" id="1_44con"]
 [ext_resource type="PackedScene" uid="uid://tjt4h6pd1lo4" path="res://portal.tscn" id="3_wiopi"]
+[ext_resource type="PackedScene" uid="uid://b8mlo8s7bfgfs" path="res://cb/swing.tscn" id="4_vg8hx"]
+[ext_resource type="PackedScene" uid="uid://bpog688xb8f7j" path="res://ring_1.tscn" id="5_dp48x"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aqsvg"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -54,3 +56,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.63101)
 
 [node name="Portal" parent="." instance=ExtResource("3_wiopi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.87417)
+
+[node name="Swing" parent="." instance=ExtResource("4_vg8hx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41641, 4.3241, -6.4916)
+start_angle = -45
+
+[node name="Swing2" parent="." instance=ExtResource("4_vg8hx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41641, 4.3241, -3.23552)
+start_angle = 45
+
+[node name="Ring1" parent="." instance=ExtResource("5_dp48x")]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, -5.02958, 1.32944, 0)

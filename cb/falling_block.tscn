@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://c70lvnw7jacyb"]
+
+[ext_resource type="Script" path="res://cb/falling_block.gd" id="1_mi2b8"]
+[ext_resource type="PackedScene" uid="uid://co1jppmycr2f7" path="res://cb/cube01.glb" id="1_osopf"]
+
+[sub_resource type="Gradient" id="Gradient_sc226"]
+offsets = PackedFloat32Array(0.358166, 0.710602)
+colors = PackedColorArray(1, 1, 1, 0.388235, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k6ywv"]
+frequency = 0.02
+offset = Vector3(5.07936e+08, 3.80952e+08, 2.08167e-08)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2en2r"]
+color_ramp = SubResource("Gradient_sc226")
+noise = SubResource("FastNoiseLite_k6ywv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ayni"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = SubResource("NoiseTexture2D_2en2r")
+roughness = 0.62
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q06gq"]
+resource_name = "white_pearl"
+next_pass = SubResource("StandardMaterial3D_7ayni")
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
+roughness = 0.46
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wei8x"]
+size = Vector3(2, 2, 2)
+
+[node name="FallingBlock" type="Node3D"]
+script = ExtResource("1_mi2b8")
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
+
+[node name="cube01" parent="AnimatableBody3D" instance=ExtResource("1_osopf")]
+
+[node name="Cube" parent="AnimatableBody3D/cube01" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_q06gq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
+shape = SubResource("BoxShape3D_wei8x")
+
+[editable path="AnimatableBody3D/cube01"]
